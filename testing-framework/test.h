@@ -14,7 +14,7 @@
         goto fail;                                                                                 \
     }                                                                                              \
                                                                                                    \
-    FORCE_SEMICOLON
+    FORCE_SEMICOLON()
 
 #define is ,
 

@@ -19,6 +19,6 @@
 #define STRINGIFY(x)           PRIMITIVE_STRINGIFY(x)
 #define PRIMITIVE_STRINGIFY(x) #x
 
-#define FORCE_SEMICOLON static_assert(true, "")
+#define FORCE_SEMICOLON() static_assert(true, "")
 
 #endif // TESTING_FRAMEWORK_AUX_H
