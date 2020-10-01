@@ -5,25 +5,49 @@
 
 #define TESTS_FOR_EACH(op, tests)     TESTS_FOR_EACH_AUX(op, tests end() end())
 #define TESTS_FOR_EACH_AUX(op, tests) TESTS_FOR_EACH_0(op, TESTS_HEAD(tests), TESTS_TAIL(tests))
-#define TESTS_FOR_EACH_0(op, head, tail)                                                           \
-    IF(TESTS_FOR_EACH_IS_END(head),                                                                \
-       EMPTY(),                                                                                    \
-       TESTS_FOR_EACH_CALL_OP(op, head) TESTS_FOR_EACH_1(op, TESTS_HEAD(tail), TESTS_TAIL(tail)))
-#define TESTS_FOR_EACH_1(op, head, tail)                                                           \
-    IF(TESTS_FOR_EACH_IS_END(head),                                                                \
-       EMPTY(),                                                                                    \
-       TESTS_FOR_EACH_CALL_OP(op, head) TESTS_FOR_EACH_3(op, TESTS_HEAD(tail), TESTS_TAIL(tail)))
-#define TESTS_FOR_EACH_2(op, head, tail)                                                           \
-    IF(TESTS_FOR_EACH_IS_END(head),                                                                \
-       EMPTY(),                                                                                    \
-       TESTS_FOR_EACH_CALL_OP(op, head) TESTS_FOR_EACH_3(op, TESTS_HEAD(tail), TESTS_TAIL(tail)))
-#define TESTS_FOR_EACH_3(op, head, tail)                                                           \
-    IF(TESTS_FOR_EACH_IS_END(head),                                                                \
-       EMPTY(),                                                                                    \
-       TESTS_FOR_EACH_CALL_OP(op, head)                                                            \
-           TESTS_FOR_EACH_4_LIMIT_REACHED(op, TESTS_HEAD(tail), TESTS_TAIL(tail)))
 
-#define TESTS_FOR_EACH_CALL_OP(op, test) op(TEST_NAME(test), TEST_BODY(test))
+#define TESTS_FOR_EACH_0(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_0_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_1(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_1_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_2(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_2_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_3(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_3_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_4(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_4_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_5(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_5_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_6(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_6_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_7(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_7_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_8(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_8_PROGRESS)(op, head, tail)
+#define TESTS_FOR_EACH_9(op, head, tail)                                                           \
+    IF(TESTS_FOR_EACH_IS_END(head), CONSUME, TESTS_FOR_EACH_9_PROGRESS)(op, head, tail)
+
+#define TESTS_FOR_EACH_0_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_1(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_1_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_2(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_2_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_3(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_3_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_4(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_4_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_5(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_5_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_6(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_6_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_7(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_7_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_8(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_8_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head)) TESTS_FOR_EACH_9(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
+#define TESTS_FOR_EACH_9_PROGRESS(op, head, tail)                                                  \
+    op(TEST_NAME(head), TEST_BODY(head))                                                           \
+        TESTS_FOR_EACH_10_LIMIT_REACHED(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
 
 #define TEST_NAME(test)                    MATCH(TEST_NAME_AUX, test)
 #define TEST_NAME_AUX_test(test_name, ...) test_name

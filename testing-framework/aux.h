@@ -10,6 +10,7 @@
 
 #define EXPAND(...) __VA_ARGS__
 #define EMPTY()
+#define CONSUME(...)       EMPTY()
 #define UNPARENTHESISE(x)  EXPAND(EXPAND x)
 #define MATCH(op, pattern) CAT(CAT(op, _), pattern)
 
