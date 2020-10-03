@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <stdbool.h>
 
-#define IF(cond, x, y) MATCH(IF, cond)((x), (y))
+#define IF(cond, x, y) MATCH(IF_, cond)((x), (y))
 #define IF_0(_x, y)    UNPARENTHESISE(y)
 #define IF_1(x, _y)    UNPARENTHESISE(x)
 
@@ -12,7 +12,7 @@
 #define EMPTY()
 #define CONSUME(...)       EMPTY()
 #define UNPARENTHESISE(x)  EXPAND(EXPAND x)
-#define MATCH(op, pattern) CAT(CAT(op, _), pattern)
+#define MATCH(op, pattern) CAT(op, pattern)
 
 #define CAT(x, y)           PRIMITIVE_CAT(x, y)
 #define PRIMITIVE_CAT(x, y) x##y

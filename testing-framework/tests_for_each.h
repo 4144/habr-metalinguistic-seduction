@@ -49,23 +49,23 @@
     op(TEST_NAME(head), TEST_BODY(head))                                                           \
         TESTS_FOR_EACH_10_LIMIT_REACHED(op, TESTS_HEAD(tail), TESTS_TAIL(tail))
 
-#define TEST_NAME(test)                    MATCH(TEST_NAME_AUX, test)
+#define TEST_NAME(test)                    MATCH(TEST_NAME_AUX_, test)
 #define TEST_NAME_AUX_test(test_name, ...) test_name
 
-#define TEST_BODY(test)                     MATCH(TEST_BODY_AUX, test)
+#define TEST_BODY(test)                     MATCH(TEST_BODY_AUX_, test)
 #define TEST_BODY_AUX_test(_test_name, ...) __VA_ARGS__
 
-#define TESTS_FOR_EACH_IS_END(test)                 MATCH(TESTS_FOR_EACH_IS_END, test)
+#define TESTS_FOR_EACH_IS_END(test)                 MATCH(TESTS_FOR_EACH_IS_END_, test)
 #define TESTS_FOR_EACH_IS_END_test(_test_name, ...) 0
 #define TESTS_FOR_EACH_IS_END_end()                 1
 
-#define TESTS_HEAD(tests)                      TESTS_HEAD_REMOVE_TAIL(MATCH(TESTS_HEAD_AUX, tests))
+#define TESTS_HEAD(tests)                      TESTS_HEAD_REMOVE_TAIL(MATCH(TESTS_HEAD_AUX_, tests))
 #define TESTS_HEAD_AUX_test(test_name, ...)    test(test_name, __VA_ARGS__),
 #define TESTS_HEAD_AUX_end()                   end(),
 #define TESTS_HEAD_REMOVE_TAIL(...)            TESTS_HEAD_REMOVE_TAIL_AUX(__VA_ARGS__)
 #define TESTS_HEAD_REMOVE_TAIL_AUX(head, tail) head
 
-#define TESTS_TAIL(tests)                    MATCH(TESTS_TAIL_AUX, tests)
+#define TESTS_TAIL(tests)                    MATCH(TESTS_TAIL_AUX_, tests)
 #define TESTS_TAIL_AUX_test(_test_name, ...) EMPTY()
 #define TESTS_TAIL_AUX_end()                 EMPTY()
 
