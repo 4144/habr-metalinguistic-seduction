@@ -3,7 +3,7 @@
 
 #include "aux.h"
 
-#define TESTS_FOR_EACH(op, ...) TESTS_FOR_EACH_0(op, __VA_ARGS__, end(), end())
+#define TESTS_FOR_EACH(op, ...) TESTS_FOR_EACH_0(op, __VA_ARGS__, end(), )
 
 #define TESTS_FOR_EACH_0(op, head, ...)                                                            \
     IF(TESTS_FOR_EACH_IS_END(head), STOP, TESTS_FOR_EACH_0_PROGRESS)(op, head, __VA_ARGS__)
