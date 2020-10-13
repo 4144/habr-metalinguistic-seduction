@@ -16,23 +16,23 @@
                                                                                                    \
     FORCE_SEMICOLON()
 
-#define is ,
+#define OPEN_BRACE() (
 
-#define TEST(...)                TEST_AUX(__VA_ARGS__)
-#define TEST_AUX(test_name, ...) test(test_name, __VA_ARGS__)
+#define TEST(name) ), test OPEN_BRACE() name,
 
-#define TESTING(tests)                                                                             \
-    GEN_TESTS(tests)                                                                               \
+#define TESTING(...) TESTING_AUX((__VA_ARGS__))
+#define TESTING_AUX(_empty, ...)                                                                   \
+    GEN_TESTS(__VA_ARGS__)                                                                         \
                                                                                                    \
     int main(void) {                                                                               \
         int res = 0;                                                                               \
-        GEN_TEST_CALLS(tests)                                                                      \
+        GEN_TEST_CALLS(__VA_ARGS__)                                                                \
                                                                                                    \
         printf("Testing %s!\n", TEST_STATUS());                                                    \
         return res;                                                                                \
     }
 
-#define GEN_TESTS(tests) TESTS_FOR_EACH(GEN_TESTS_VISIT_ONE, tests)
+#define GEN_TESTS(...) TESTS_FOR_EACH(GEN_TESTS_VISIT_ONE, __VA_ARGS__)
 #define GEN_TESTS_VISIT_ONE(test_name, ...)                                                        \
     static int test_name(void) {                                                                   \
         int res = 0;                                                                               \
@@ -42,7 +42,7 @@
         return res;                                                                                \
     }
 
-#define GEN_TEST_CALLS(tests)                    TESTS_FOR_EACH(GEN_TEST_CALLS_VISIT_ONE, tests)
+#define GEN_TEST_CALLS(...)                      TESTS_FOR_EACH(GEN_TEST_CALLS_VISIT_ONE, __VA_ARGS__)
 #define GEN_TEST_CALLS_VISIT_ONE(test_name, ...) res += test_name();
 
 #define TEST_STATUS() (res == 0 ? "passed" : "failed")
