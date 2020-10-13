@@ -20,7 +20,7 @@
 
 #define TEST(name) ), test OPEN_BRACE() name,
 
-#define TESTING(...) TESTING_AUX((__VA_ARGS__))
+#define TESTING(...) TESTING_AUX((__VA_ARGS__)) FORCE_SEMICOLON()
 #define TESTING_AUX(_empty, ...)                                                                   \
     GEN_TESTS(__VA_ARGS__)                                                                         \
                                                                                                    \

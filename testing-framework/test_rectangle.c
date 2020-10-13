@@ -10,4 +10,4 @@ TESTING(
     TEST(test_perimeter) {
         Rectangle rectangle = {.height = 61, .width = 7};
         ASSERT(perimeter(&rectangle) == (61 + 7) * 2);
-    })
+    });
